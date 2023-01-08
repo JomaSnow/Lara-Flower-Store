@@ -15,13 +15,18 @@ class AuthController extends Controller
             [
                 'name' => 'required|string',
                 'email' => 'required|string|unique:users,email',
-                'password' => 'required|string|confirmed'
+                'password' => 'required|string|confirmed',
+                'dob' => 'required|date',
+                'cep' => 'required|string'
             ]
         );
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
+            'dob' => $fields['dob'],
+            'role' => 'USER',
+            'cep' => $fields['cep'],
             'password' => bcrypt($fields['password'])
         ]);
 
