@@ -25,16 +25,22 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $current_user_role = auth()->user()->role;
+        
+        if($current_user_role == 'USER'){
+            return response(['message'=>'Não autorizado.'], 403);
+        }
+        
         $request->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
             'stock' => 'required'
         ]);
-
+        
         return Product::create($request->all());
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -45,7 +51,7 @@ class ProductController extends Controller
     {
         return Product::find($id);
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -55,11 +61,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $current_user_role = auth()->user()->role;
+        
+        if($current_user_role == 'USER'){
+            return response(['message'=>'Não autorizado.'], 403);
+        }
+        
         $product = Product::find($id);
         $product->update($request->all());
         return $product;
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -68,9 +80,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $current_user_role = auth()->user()->role;
+        
+        if($current_user_role == 'USER'){
+            return response(['message'=>'Não autorizado.'], 403);
+        }
+
         return Product::destroy($id);
     }
-
+    
     /**
      * Search for a name.
      *
