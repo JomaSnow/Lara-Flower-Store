@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->decimal('total', 5, 2);
+            $table->decimal('total', 15, 2);
             $table->decimal('discount', 5, 2);
             $table->enum('status', ['PENDENTE', 'PAGO', 'ENVIADO', 'ENTREGUE', 'CANCELADO']);
         });
