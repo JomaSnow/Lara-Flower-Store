@@ -1,18 +1,44 @@
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.env.production
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
-/.idea
+# backend
+/backend/node_modules
+/backend/public/build
+/backend/public/hot
+/backend/public/storage
+/backend/storage/*.key
+/backend/vendor
+/backend.env
+/backend.env.backup
+/backend.env.production
+/backend.phpunit.result.cache
+/backendHomestead.json
+/backendHomestead.yaml
+/backendauth.json
+/backendnpm-debug.log
+/backendyarn-error.log
+/backend/.fleet
+/backend/.idea
 /.vscode
+
+
+# frontend
+/frontend/.DS_Store
+/frontend/node_modules
+/frontend/dist
+
+# local env files
+/frontend/.env.local
+/frontend/.env.*.local
+
+# Log files
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
