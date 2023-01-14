@@ -1,5 +1,5 @@
 <template>
-  <h1 id="titleElement">{{ text }}</h1>
+  <h1 id="titleElement">{{ this.title }}</h1>
 </template>
 
 <script>
@@ -11,8 +11,16 @@ export default {
       default: "Título",
     },
   },
+  data() {
+    return {
+      title: this.text,
+    };
+  },
   created() {
     window.addEventListener("scroll", this.handleScroll);
+    for (let i = 0; i < 10; i++) {
+      this.title = `${this.title} • ${this.title}`;
+    }
   },
   unmounted() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -40,5 +48,6 @@ export default {
   font-family: Italiana, serif;
   font-size: 200px;
   white-space: nowrap;
+  text-align: center;
 }
 </style>

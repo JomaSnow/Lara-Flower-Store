@@ -2,9 +2,7 @@
   <section>
     <div class="overlay" :style="cssVars"></div>
     <div class="fade-block"></div>
-    <PageTitle
-      text="Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • Produtos • "
-    />
+    <PageTitle text="Produtos" />
   </section>
 </template>
 
@@ -34,7 +32,7 @@ export default {
 
       const sectionHeight = document.querySelector("section").clientHeight;
 
-      this.opacity = 0.2 + (scrollTop / sectionHeight) * 1.6;
+      this.opacity = 0.2 + scrollTop / (sectionHeight * 0.6);
     },
   },
   computed: {
