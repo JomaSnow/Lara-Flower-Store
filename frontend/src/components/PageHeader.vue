@@ -15,7 +15,7 @@ export default {
     PageTitle,
   },
   data() {
-    return { opacity: 0.2 };
+    return { opacity: 0.3 };
   },
   created() {
     window.addEventListener("scroll", this.handleScroll);
@@ -32,7 +32,7 @@ export default {
 
       const sectionHeight = document.querySelector("section").clientHeight;
 
-      this.opacity = 0.2 + scrollTop / (sectionHeight * 0.6);
+      this.opacity = 0.3 + scrollTop / (sectionHeight * 0.6);
     },
   },
   computed: {
