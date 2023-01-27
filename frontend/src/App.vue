@@ -1,14 +1,20 @@
 <template>
-  <Product />
+  <CustomNavbar />
+  <main>
+    <router-view></router-view>
+  </main>
+  <CustomFooter />
 </template>
 
 <script>
-import Product from "./pages/Product.vue";
+import CustomNavbar from "./components/CustomNavbar.vue";
+import CustomFooter from "./components/CustomFooter.vue";
 
 export default {
   name: "App",
   components: {
-    Product,
+    CustomNavbar,
+    CustomFooter,
   },
 };
 </script>
@@ -33,5 +39,14 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+@import "./styles.scss";
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 </style>
