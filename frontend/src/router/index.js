@@ -5,10 +5,22 @@ import About from "./../pages/About.vue";
 const routes = [
   {
     path: "/",
-    component: Product,
+    component: About,
   },
   {
     path: "/about",
+    component: About,
+  },
+  {
+    path: "/products",
+    component: Product,
+  },
+  {
+    path: "/products/:id",
+    component: About,
+  },
+  {
+    path: "/login",
     component: About,
   },
 ];
