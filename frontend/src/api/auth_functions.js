@@ -10,65 +10,111 @@ export async function isLogged() {
   return currentToken == null ? false : true;
 }
 
-export async function createUser(newUser = {}) {
-  const res = await api.post(`/register`, newUser);
+export async function createUser(newUser) {
+  try {
+    const res = await api.post(`/register`, newUser);
 
-  return res.data;
+    if (res.status == 201) {
+      const token = res.data.token;
+
+      localStorage.setItem(LARASTORE_USER_TOKEN, token);
+    }
+
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    if (e.code != null && e.code == "ERR_NETWORK") {
+      return "Sem conexão com o servidor";
+    }
+    return e.response.data.message;
+  }
 }
 
-export async function userLogin(loginForm = {}) {
-  const res = await api.post(`/login`, loginForm);
+export async function userLogin(loginForm) {
+  try {
+    const res = await api.post(`/login`, loginForm);
 
-  if (res.status == 201) {
-    const token = res.data.token;
+    if (res.status == 201) {
+      const token = res.data.token;
 
-    localStorage.setItem(LARASTORE_USER_TOKEN, token);
+      localStorage.setItem(LARASTORE_USER_TOKEN, token);
+    }
+
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    if (e.code != null && e.code == "ERR_NETWORK") {
+      return "Sem conexão com o servidor";
+    }
+    return e.response.data.message;
   }
-
-  return res.data;
 }
 
-export async function adminLogin(loginForm = {}) {
-  const res = await api.post(`/login`, loginForm);
+export async function adminLogin(loginForm) {
+  try {
+    const res = await api.post(`/login`, loginForm);
 
-  if (res.status == 201 && res.data.user.role == "ADMIN") {
-    const token = res.data.token;
+    if (res.status == 201 && res.data.user.role == "ADMIN") {
+      const token = res.data.token;
 
-    sessionStorage.setItem(LARASTORE_USER_TOKEN, token);
+      sessionStorage.setItem(LARASTORE_ADMIN_TOKEN, token);
+    } else {
+      return "Email ou senha incorretos";
+    }
+
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    if (e.code != null && e.code == "ERR_NETWORK") {
+      return "Sem conexão com o servidor";
+    }
+    return e.response.data.message;
   }
-
-  return res.data;
 }
 
 export async function logout() {
   const userToken = localStorage.getItem(LARASTORE_USER_TOKEN);
   const adminToken = sessionStorage.getItem(LARASTORE_ADMIN_TOKEN);
 
-  if (adminToken != null) {
-    const adminConfig = {
+  try {
+    if (adminToken != null) {
+      const adminConfig = {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+      };
+
+      const adminRes = await api.post(`/logout`, null, adminConfig);
+
+      sessionStorage.removeItem(LARASTORE_ADMIN_TOKEN);
+      localStorage.removeItem(LARASTORE_USER_TOKEN);
+
+      return adminRes.data;
+    }
+
+    const userConfig = {
       headers: {
         Accept: "application/json",
-        Authorization: `Bearer ${adminToken}`,
+        Authorization: `Bearer ${userToken}`,
       },
     };
 
-    const adminRes = await api.post(`/logout`, null, adminConfig);
+    const userRes = await api.post(`/logout`, null, userConfig);
 
-    sessionStorage.removeItem(LARASTORE_ADMIN_TOKEN);
+    localStorage.removeItem(LARASTORE_USER_TOKEN);
 
-    return adminRes.data;
+    return userRes.data;
+  } catch (e) {
+    console.error(e);
+    if (e.code != null && e.code == "ERR_NETWORK") {
+      return "Sem conexão com o servidor";
+    }
+    if (e.response.status == 401 && (userToken != null || adminToken != null)) {
+      sessionStorage.removeItem(LARASTORE_ADMIN_TOKEN);
+      localStorage.removeItem(LARASTORE_USER_TOKEN);
+      return "Token inválido";
+    }
+    return e.response.data.message;
   }
-
-  const userConfig = {
-    headers: {
-      Accept: "application/json",
-      Authorization: `Bearer ${userToken}`,
-    },
-  };
-
-  const userRes = await api.post(`/logout`, null, userConfig);
-
-  localStorage.removeItem(LARASTORE_USER_TOKEN);
-
-  return userRes.data;
 }
