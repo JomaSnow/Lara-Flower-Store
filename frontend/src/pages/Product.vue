@@ -1,9 +1,11 @@
 <template>
   <PageHeader />
+  {{ this.products }}
   <ProductArea />
 </template>
 
 <script>
+import { getAllProducts } from "@/api/products_functions";
 import PageHeader from "@/components/PageHeader.vue";
 import ProductArea from "@/components/ProductArea.vue";
 
@@ -12,6 +14,18 @@ export default {
   components: {
     PageHeader,
     ProductArea,
+  },
+  data() {
+    return {
+      products: [],
+      loading: true,
+    };
+  },
+  mounted() {
+    getAllProducts().then((res) => {
+      this.products = res;
+      this.loading = false;
+    });
   },
 };
 </script>
