@@ -68,7 +68,7 @@ section {
   flex-wrap: wrap;
   justify-content: space-evenly;
   width: 100%;
-  padding: 200px 0 0;
+  padding: 200px 0 300px;
   overflow: hidden;
 }
 </style>

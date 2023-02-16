@@ -45,8 +45,9 @@ export default {
 @import "../styles.scss";
 #titleElement {
   position: absolute;
-  font-family: Italiana, serif;
-  font-size: 200px;
+  font-family: $titleFont;
+  color: $secondaryColor;
+  font-size: 70vh;
   white-space: nowrap;
   text-align: center;
 }

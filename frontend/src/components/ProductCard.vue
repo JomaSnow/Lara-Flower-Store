@@ -54,17 +54,18 @@ export default {
 <style scoped lang="scss">
 .imgBg {
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   opacity: var(--opacity);
-  transition: all 0.8s linear;
+  transition: all 0.4s linear;
   width: 125%;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
+  height: 110vh;
+  bottom: -2vh;
+  left: -10%;
+  right: 10%;
   filter: blur(8px) saturate(0.4);
 }
 .card {
+  z-index: 1;
   border: 1px solid red;
   position: relative;
   display: flex;

@@ -1,6 +1,5 @@
 <template>
   <PageHeader />
-  {{ this.products }}
   <ProductArea />
 </template>
 

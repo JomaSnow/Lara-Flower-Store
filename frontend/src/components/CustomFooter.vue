@@ -30,7 +30,7 @@
           ><div>
             <img
               src="../assets/images/Instagram_Glyph_White.svg"
-              alt="github logo"
+              alt="instagram logo"
             /></div
         ></a>
         <a
@@ -38,14 +38,17 @@
           target="_blank"
           rel="noopener noreferrer"
           ><div>
-            <img src="../assets/images/Logo_white.svg" alt="github logo" /></div
+            <img
+              src="../assets/images/Logo_white.svg"
+              alt="twitter logo"
+            /></div
         ></a>
         <a
           href="https://www.linkedin.com/in/jo%C3%A3o-marcos-schmaltz-duda-a15234257/"
           target="_blank"
           rel="noopener noreferrer"
           ><div>
-            <img src="../assets/images/LI-In-Bug.png" alt="github logo" /></div
+            <img src="../assets/images/linkedin.svg" alt="linkedin logo" /></div
         ></a>
       </div>
       <span>&copy; 2023</span>
@@ -60,20 +63,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../styles.scss";
 .fade-divider {
-  margin: 150px 0 0;
+  margin: 0;
   width: 100%;
-  height: 80px;
+  height: 300px;
+  background-color: $primaryColor;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 1) 100%
+    rgba(43, 49, 28, 0) 0%,
+    rgba(43, 49, 28, 1) 80%
   );
 }
 footer {
+  z-index: 10;
   display: flex;
   flex-direction: row;
-  background-color: black;
+  background-color: $secondaryColor;
   padding: 0 0 40px;
 }
 .nav-area {
@@ -85,7 +91,7 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border-left: 2px white solid;
+  border-left: 2px $primaryColor solid;
   align-items: center;
   flex: 1;
 }
@@ -107,16 +113,20 @@ footer {
   font-size: 110px;
   white-space: nowrap;
   text-decoration: none;
-  color: white;
-  border-bottom: 2px white solid;
+  color: $accentColor;
+  border-bottom: 2px $primaryColor solid;
   &:nth-last-child(1) {
     border-bottom: none;
+  }
+  &:hover {
+    background-color: $accentColor;
+    color: $primaryColor;
   }
 }
 a {
   div {
     border-radius: 100%;
-    border: 1px solid white;
+    border: 1px solid $primaryColor;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -130,9 +140,18 @@ a {
       object-fit: contain;
     }
   }
+  &:hover {
+    div {
+      border: 1px solid $accentColor;
+    }
+    img {
+      filter: brightness(0) saturate(100%) invert(46%) sepia(25%)
+        saturate(1012%) hue-rotate(314deg) brightness(91%) contrast(87%);
+    }
+  }
 }
 span {
-  color: white;
+  color: $primaryColor;
   text-align: center;
   font-size: 18px;
 }
