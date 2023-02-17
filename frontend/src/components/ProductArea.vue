@@ -1,51 +1,7 @@
 <template>
   <section>
     <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
-      imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
-    />
-    <ProductCard
-      title="sad"
+      :product="this.products[0]"
       imgPath="https://fastly.picsum.photos/id/998/1080/1080.jpg?hmac=CxN3J6oVjTmz4-k4Ss7_0nVim2J5DaT-adGDe-psuo4"
     />
   </section>
@@ -57,6 +13,9 @@ import ProductCard from "./ProductCard.vue";
 export default {
   name: "ProductArea",
   components: { ProductCard },
+  props: {
+    products: Array,
+  },
 };
 </script>
 

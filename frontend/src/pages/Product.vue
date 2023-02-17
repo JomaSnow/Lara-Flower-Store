@@ -1,6 +1,6 @@
 <template>
   <PageHeader />
-  <ProductArea />
+  <ProductArea v-bind:products="products" />
 </template>
 
 <script>

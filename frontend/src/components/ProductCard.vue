@@ -1,8 +1,25 @@
 <template>
-  <img class="imgBg" :src="this.imgPath" :alt="this.title" :style="cssVars" />
-  <div ref="el" class="card" @mousemove="moveCard" @mouseout="resetCard">
-    <img class="card-img" :src="this.imgPath" :alt="this.title" />
-    <span>{{ this.title }}</span>
+  <img
+    class="imgBg"
+    :src="this.imgPath"
+    :alt="this.product.name"
+    :style="cssVars"
+  />
+  <div
+    ref="el"
+    class="card"
+    @mousemove="moveCard"
+    @mouseout="resetCard"
+    :class="{ visible: this.isVisible }"
+  >
+    <div class="card-border-bg"></div>
+    <img class="card-img" :src="this.imgPath" :alt="this.product.name" />
+    <div class="card-title-area">
+      <div class="card-price">
+        <span>${{ this.product.price }}</span>
+      </div>
+      <span>{{ this.product.name }}</span>
+    </div>
   </div>
 </template>
 
@@ -10,14 +27,30 @@
 export default {
   name: "ProductCard",
   props: {
-    title: {
-      type: String,
-      default: "Card",
+    product: {
+      type: Object,
+      default() {
+        return {
+          id: 0,
+          name: "Produto",
+          description: "Descrição Produto",
+          price: "999.99",
+          stock: 99,
+          created_at: "2023-01-30T07:59:39.000000Z",
+          updated_at: "2023-01-30T07:59:39.000000Z",
+        };
+      },
     },
     imgPath: String,
   },
   data() {
-    return { opacity: 0 };
+    return { opacity: 0, isVisible: false };
+  },
+  created() {
+    window.addEventListener("scroll", this.checkVisibility);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.checkVisibility);
   },
   computed: {
     cssVars() {
@@ -27,6 +60,16 @@ export default {
     },
   },
   methods: {
+    checkVisibility() {
+      if (this.isVisible == true) {
+        return;
+      }
+      const rect = this.$refs.el.getBoundingClientRect();
+      const viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+
+      this.isVisible = rect.top < viewportHeight * 0.85;
+    },
     moveCard(event) {
       this.opacity = 1;
 
@@ -52,6 +95,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../styles.scss";
 .imgBg {
   position: fixed;
   z-index: 0;
@@ -66,7 +110,9 @@ export default {
 }
 .card {
   z-index: 1;
-  border: 1px solid red;
+  opacity: 0;
+  border-radius: 23px;
+  background-color: $primaryColor;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -76,6 +122,7 @@ export default {
   width: 450px;
   margin: 20px 50px 80px;
   transform: translate(0px, 0px);
+  box-shadow: -1px 4px 8px 4px rgba($color: #000000, $alpha: 0.25);
 
   transition-property: transform;
   transition-duration: 0.1s;
@@ -83,10 +130,71 @@ export default {
 
   &:hover {
     cursor: pointer;
+
+    .card-border-bg {
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+    }
+  }
+}
+
+.visible {
+  transition: opacity 0.6s ease;
+  opacity: 1;
+}
+
+.card-border-bg {
+  position: absolute;
+  z-index: -1;
+  width: 0%;
+  height: 0%;
+  border-radius: inherit;
+  border: 5px solid $accentColor;
+  transition: height 0.4s ease;
+}
+
+.card-title-area {
+  background-color: $primaryColor;
+  border-bottom-right-radius: 23px;
+  border-bottom-left-radius: 23px;
+  display: flex;
+  position: relative;
+  width: 100%;
+  flex: 9;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  & > span {
+    color: $secondaryColor;
+    font-family: $bodyFont;
+    font-size: 1.5rem;
+  }
+}
+.card-price {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 8px;
+  right: 0;
+  top: -40px;
+  height: 40px;
+  min-width: 100px;
+  border-top-left-radius: 9px;
+  background-color: $accentColor;
+
+  span {
+    color: #ffffff;
+    font-family: $bodyFont;
+    font-weight: bold;
   }
 }
 .card-img {
-  height: 80%;
+  flex: 41;
   width: 100%;
+  border-top-right-radius: 23px;
+  border-top-left-radius: 23px;
 }
 </style>
