@@ -47,7 +47,7 @@ export default {
   position: absolute;
   font-family: $titleFont;
   color: $secondaryColor;
-  font-size: 70vh;
+  font-size: 60vh;
   white-space: nowrap;
   text-align: center;
 }

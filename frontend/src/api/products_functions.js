@@ -9,9 +9,9 @@ export async function getAllProducts() {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -22,9 +22,9 @@ export async function getProductById(id) {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -50,9 +50,9 @@ export async function createProduct(newProduct) {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -76,9 +76,9 @@ export async function updateProduct(id, updatedProduct = {}) {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -103,9 +103,9 @@ export async function deleteProduct(id) {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -117,8 +117,8 @@ export async function searchProduct(query) {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }

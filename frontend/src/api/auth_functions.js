@@ -24,9 +24,9 @@ export async function createUser(newUser) {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -44,9 +44,9 @@ export async function userLogin(loginForm) {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -59,16 +59,16 @@ export async function adminLogin(loginForm) {
 
       sessionStorage.setItem(LARASTORE_ADMIN_TOKEN, token);
     } else {
-      return "Email ou senha incorretos";
+      throw "Email ou senha incorretos.";
     }
 
     return res.data;
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
 
@@ -108,13 +108,13 @@ export async function logout() {
   } catch (e) {
     console.error(e);
     if (e.code != null && e.code == "ERR_NETWORK") {
-      return "Sem conexão com o servidor";
+      throw "Sem conexão com o servidor.";
     }
     if (e.response.status == 401 && (userToken != null || adminToken != null)) {
       sessionStorage.removeItem(LARASTORE_ADMIN_TOKEN);
       localStorage.removeItem(LARASTORE_USER_TOKEN);
-      return "Token inválido";
+      throw "Token inválido.";
     }
-    return e.response.data.message;
+    throw e.response.data.message;
   }
 }
