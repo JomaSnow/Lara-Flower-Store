@@ -150,7 +150,7 @@ export default {
   height: 0%;
   border-radius: inherit;
   border: 5px solid $accentColor;
-  transition: height 0.4s ease;
+  transition: height 0.6s ease;
 }
 
 .card-title-area {

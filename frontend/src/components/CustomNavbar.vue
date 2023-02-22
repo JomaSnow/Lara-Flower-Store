@@ -1,26 +1,31 @@
 <template>
-  <nav>
+  <nav @mouseenter="this.showNavbar = true">
     <div class="logo-area">
       <router-link to="/"
         ><img src="../assets/images/LI-Logo.png" alt="Lara Flower Store Logo"
       /></router-link>
     </div>
-    <div class="links-area">
-      <div class="nav-link">
-        <div class="nav-link-bg"></div>
-        <router-link to="/">início</router-link>
-      </div>
-      <div class="nav-link">
-        <div class="nav-link-bg"></div>
-        <router-link to="about">sobre</router-link>
-      </div>
-      <div class="nav-link">
-        <div class="nav-link-bg"></div>
-        <router-link to="products">produtos</router-link>
-      </div>
-      <div class="nav-link">
-        <div class="nav-link-bg"></div>
-        <router-link to="login">login</router-link>
+    <div
+      class="nav-bg"
+      :class="{ hidden: !this.showNavbar, visible: this.showNavbar }"
+    >
+      <div class="links-area">
+        <div class="nav-link">
+          <div class="nav-link-bg"></div>
+          <router-link to="/">início</router-link>
+        </div>
+        <div class="nav-link">
+          <div class="nav-link-bg"></div>
+          <router-link to="about">sobre</router-link>
+        </div>
+        <div class="nav-link">
+          <div class="nav-link-bg"></div>
+          <router-link to="products">produtos</router-link>
+        </div>
+        <div class="nav-link">
+          <div class="nav-link-bg"></div>
+          <router-link to="login">login</router-link>
+        </div>
       </div>
     </div>
   </nav>
@@ -29,6 +34,33 @@
 <script>
 export default {
   name: "CustomNavbar",
+  data() {
+    return {
+      lastPos: window.scrollY || document.documentElement.scrollTop,
+      showNavbar: true,
+    };
+  },
+  created() {
+    window.addEventListener("scroll", this.shouldShow);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.shouldShow);
+  },
+  methods: {
+    shouldShow() {
+      const currentPos = window.scrollY;
+      const startAt = 400;
+      if (currentPos > this.lastPos) {
+        if (currentPos < startAt) {
+          return;
+        }
+        this.showNavbar = false;
+      } else if (currentPos < this.lastPos) {
+        this.showNavbar = true;
+      }
+      this.lastPos = currentPos <= 0 ? 0 : currentPos;
+    },
+  },
 };
 </script>
 
@@ -41,22 +73,39 @@ nav {
   left: 0;
   width: 100%;
   height: $navbarHeight;
+  background-color: transparent;
+}
+
+.nav-bg {
   background-color: $secondaryColor;
   opacity: 1;
   display: flex;
   flex-direction: row;
   align-items: stretch;
   padding: 0 80px;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+}
+
+.hidden {
+  transform: translateY(-$navbarHeight);
+}
+.visible {
+  transform: translateY(0);
 }
 .logo-area {
+  z-index: 3;
+  padding: 0 80px;
+  top: 0;
+  bottom: 0;
+  position: absolute;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  flex: 1;
   img {
     width: 200px;
-    /* position: absolute; */
   }
 }
 .links-area {
